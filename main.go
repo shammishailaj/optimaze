@@ -39,6 +39,8 @@ func main() {
 
 	p := strings.Split(text, ",")
 
+	log.Printf("p = %#v", p)
+
 	w64, _ := strconv.ParseUint(string(p[0]), 10, 64)
 	h64, _ := strconv.ParseUint(string(p[1]), 10, 64)
 	q64, _ := strconv.ParseInt(string(p[2]), 10, 64)
