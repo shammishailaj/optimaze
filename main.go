@@ -86,36 +86,37 @@ func main() {
 			img, err := jpeg.Decode(file)
 			if err != nil {
 				log.Println(err)
+				file.Close()
+			} else {
+				file.Close()
+
+				log.Println("Input:", input,"Width:", width, "Height:", height, "Size:", ByteCountSI(size))
+
+				var opt jpeg.Options
+
+				opt.Quality = quality
+
+				// resize to width 1000 using Lanczos resampling
+				// and preserve aspect ratio
+				m := resize.Resize(width, height, img, resize.Lanczos3)
+
+				output := "./"
+				output += f.Name()
+
+				out, err := os.Create(output)
+				if err != nil {
+					log.Println(err)
+				}
+				defer out.Close()
+				// write new image to file
+				jpeg.Encode(out, m, &opt)
+				var outsize int64 = 0
+				outstat, outstatErr := out.Stat()
+				if outstatErr == nil {
+					outsize = outstat.Size()
+				}
+				log.Println("Output:", output, "Width:", width, "Height:", height, "Size:", ByteCountSI(outsize))
 			}
-
-			file.Close()
-
-			log.Println("Input:", input,"Width:", width, "Height:", height, "Size:", ByteCountSI(size))
-
-			var opt jpeg.Options
-
-			opt.Quality = quality
-
-			// resize to width 1000 using Lanczos resampling
-			// and preserve aspect ratio
-			m := resize.Resize(width, height, img, resize.Lanczos3)
-
-			output := "./"
-			output += f.Name()
-
-			out, err := os.Create(output)
-			if err != nil {
-				log.Println(err)
-			}
-			defer out.Close()
-			// write new image to file
-			jpeg.Encode(out, m, &opt)
-			var outsize int64 = 0
-			outstat, outstatErr := out.Stat()
-			if outstatErr == nil {
-				outsize = outstat.Size()
-			}
-			log.Println("Output:", output, "Width:", width, "Height:", height, "Size:", ByteCountSI(outsize))
 		} else {
 			log.Printf("Filename is: %s. Skipping", input)
 		}
