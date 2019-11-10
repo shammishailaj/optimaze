@@ -44,7 +44,7 @@ func main() {
 	w64, _ := strconv.ParseUint(string(p[0]), 10, 64)
 	h64, _ := strconv.ParseUint(string(p[1]), 10, 64)
 	q64, _ := strconv.ParseInt(string(p[2]), 10, 64)
-	op := p[3]
+	op := p[]
 
 	width := uint(w64)
 	height := uint(h64)
@@ -57,7 +57,7 @@ func main() {
 
 	for _, f := range files {
 		//fmt.Println(f.Name())
-		input := "./input/"
+		input := "./"
 		input += f.Name()
 		fmt.Println(input)
 
@@ -100,7 +100,7 @@ func main() {
 		// and preserve aspect ratio
 		m := resize.Resize(width, height, img, resize.Lanczos3)
 
-		output := "./output/"
+		output := "./"
 		output += f.Name()
 
 		out, err := os.Create(output)
