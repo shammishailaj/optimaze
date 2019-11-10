@@ -58,7 +58,7 @@ func main() {
 		//fmt.Println(f.Name())
 		input := "./"
 		input += f.Name()
-		if strings.Contains(input, ".jpg") {
+		if !strings.Contains(input, ".jpg") {
 			continue
 		}
 		fmt.Println(input)
