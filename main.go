@@ -18,13 +18,13 @@ import (
 
 func main() {
 	// open "test.jpg"
-	if _, err := os.Stat("./input"); os.IsNotExist(err) {
+	if _, err := os.Stat("./"); os.IsNotExist(err) {
 		err = os.Mkdir("input", 0777)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
-	if _, err := os.Stat("./output"); os.IsNotExist(err) {
+	if _, err := os.Stat("./"); os.IsNotExist(err) {
 		err = os.Mkdir("output", 0777)
 		if err != nil {
 			log.Fatal(err)
@@ -50,7 +50,7 @@ func main() {
 	height := uint(h64)
 	quality := int(q64)
 
-	files, err := ioutil.ReadDir("./input/")
+	files, err := ioutil.ReadDir("./")
 	if err != nil {
 		log.Fatal(err)
 	}
