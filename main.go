@@ -44,7 +44,7 @@ func main() {
 	w64, _ := strconv.ParseUint(string(p[0]), 10, 64)
 	h64, _ := strconv.ParseUint(string(p[1]), 10, 64)
 	q64, _ := strconv.ParseInt(string(p[2]), 10, 64)
-	op := p[]
+	op := p[3]
 
 	width := uint(w64)
 	height := uint(h64)
