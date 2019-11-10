@@ -21,13 +21,13 @@ func main() {
 	if _, err := os.Stat("./"); os.IsNotExist(err) {
 		err = os.Mkdir("input", 0777)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 	}
 	if _, err := os.Stat("./"); os.IsNotExist(err) {
 		err = os.Mkdir("output", 0777)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 	}
 
@@ -52,7 +52,7 @@ func main() {
 
 	files, err := ioutil.ReadDir("./")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	for _, f := range files {
@@ -79,13 +79,13 @@ func main() {
 
 		file, err := os.Open(input)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 
 		// decode jpeg into image.Image
 		img, err := jpeg.Decode(file)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 
 		file.Close()
@@ -105,7 +105,7 @@ func main() {
 
 		out, err := os.Create(output)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 		defer out.Close()
 		// write new image to file
@@ -117,7 +117,7 @@ func main() {
 func getFileInfo(imgPath string) (int, int, int64) {
 	file, err := os.Open(imgPath)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	stats, serr := file.Stat()
@@ -128,7 +128,7 @@ func getFileInfo(imgPath string) (int, int, int64) {
 
 	im, _, err := image.DecodeConfig(file) // Image Struct
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	return im.Width, im.Height, size
 }
