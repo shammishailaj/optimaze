@@ -12,7 +12,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-
 	"github.com/nfnt/resize"
 )
 
@@ -59,6 +58,9 @@ func main() {
 		//fmt.Println(f.Name())
 		input := "./"
 		input += f.Name()
+		if strings.Contains(input, ".jpg") {
+			continue
+		}
 		fmt.Println(input)
 
 		imwInt, imhInt, size := getFileInfo(input)
