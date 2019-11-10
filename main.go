@@ -61,7 +61,7 @@ func main() {
 		input += f.Name()
 		fmt.Println(input)
 
-		imwInt, imhInt := getFileInfo(input)
+		imwInt, imhInt, size := getFileInfo(input)
 		imw := uint(imwInt)
 		imh := uint(imhInt)
 
@@ -90,7 +90,7 @@ func main() {
 
 		file.Close()
 
-		fmt.Println("Width:", width, "Height:", height)
+		fmt.Println("Width:", width, "Height:", height, "Size:", size)
 
 		var opt jpeg.Options
 
@@ -114,15 +114,21 @@ func main() {
 
 }
 
-func getFileInfo(imgPath string) (int, int) {
+func getFileInfo(imgPath string) (int, int, int64) {
 	file, err := os.Open(imgPath)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	stats, serr := file.Stat()
+	var size int64 = 0
+	if serr != nil {
+		size = stats.Size()
 	}
 
 	im, _, err := image.DecodeConfig(file) // Image Struct
 	if err != nil {
 		log.Fatal(err)
 	}
-	return im.Width, im.Height
+	return im.Width, im.Height, size
 }
